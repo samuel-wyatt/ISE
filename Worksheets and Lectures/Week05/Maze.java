@@ -3,10 +3,10 @@ import java.util.Scanner;
 public class Maze
 {
     public static final int EMPTY = 0;
-    public static final int WALL = 2;
-    public static final int START = 3;
-    public static final int END = 4;
-    public static final int VISITED = 5;
+    public static final int WALL = 1;
+    public static final int START = 2;
+    public static final int END = 3;
+    public static final int VISITED = 4;
     
     public static final char NORTH = 'n';
     public static final char EAST = 'e';
@@ -105,6 +105,5 @@ public class Maze
         }
         
         Viewer.view(grid);        
-        }
     }
-}
+i
