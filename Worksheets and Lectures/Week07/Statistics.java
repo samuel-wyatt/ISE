@@ -11,12 +11,14 @@ import java.util.Scanner;
  */
 public class Statistics
 {
-    static double varianceResult;
-    static int sumLength;
-    static double[] sumList;
-
     public static void main(String[] args)
     {
+        //Global variables I may remove
+        double varianceResult;
+        int sumLength;
+        double[] sumList;
+
+
         String operation;
         int listLength;
         double[] dataList;
@@ -43,27 +45,27 @@ public class Statistics
         // Determine which operation was chosen, and perform it.
         if(operation.equals("min"))
         {
-            result = minmax(dataList, false);
+            result = min(dataList);
         }
         else if(operation.equals("max"))
         {
-            result = minmax(dataList, true);
+            result = max(dataList);
         }
         else if(operation.equals("sum"))
         {   
             sumLength = listLength;
             sumList = dataList;
-            result = sum();
+            result = sum(sumList, sumLength);
         }
         else if(operation.equals("mean"))
         {
             sumLength = listLength;
             sumList = dataList;
-            result = mean();
+            result = mean(sumList);
         }
         else if(operation.equals("variance"))
         {
-            variance(dataList);
+            varianceResult = variance(dataList);
             result = varianceResult;
         }
         else if(operation.equals("stddev"))
@@ -89,7 +91,7 @@ public class Statistics
     /**
      * Calculates the sum of the numbers in the sumList variable.
      */
-    public static double sum()
+    public static double sum(double[] sumList, int sumLength)
     {
         double result = 0.0;
         for(int i = 0; i < sumLength; i++)
@@ -103,29 +105,27 @@ public class Statistics
     /**
      * Calculates the mean (average) of the numbers in the sumList variable.
      */
-    public static double mean()
+    public static double mean(double[] sumList)
     {
         double sum = 0.0;
-        for(int i = 0; i < sumLength; i++)
+        for(int i = 0; i < sumList.length; i++)
         {
             sum += sumList[i];
         }
-        return sum / (double)sumLength;
+        return sum / sumList.length;
     }
     
     /**
      * Calculates the variance of a list of numbers. Stores the result in the 
      * varianceResult variable.
      */
-    public static void variance(double[] dataList)
+    public static double variance(double[] dataList)
     {
         double average;
         double difference;
         double sumSquares = 0.0;
         
-        sumLength = dataList.length;
-        sumList = dataList;
-        average = mean();
+        average = mean(dataList);
         
         for(int i = 0; i < dataList.length; i++)
         {
@@ -133,7 +133,7 @@ public class Statistics
             sumSquares += difference * difference;
         }
         
-        varianceResult = sumSquares / ((int)dataList.length - 1);
+        return sumSquares / ((int)dataList.length - 1);
     }
     
     /**
@@ -141,7 +141,7 @@ public class Statistics
      */
     public static double stddev(double[] dataList)
     {
-        variance(dataList);        
+        double varianceResult = variance(dataList);        
         return Math.sqrt(varianceResult);
     }
     
@@ -150,40 +150,41 @@ public class Statistics
      * calcMax parameter says whether to calculate the maximum or minimum. If 
      * calcMax is true, the maximum is found; otherwise, the minimum is found.
      */
-    public static double minmax(double[] dataList, boolean calcMax)
+    public static double min(double[] dataList)
     {
         double element;
         double result = dataList[0];
         
-        if(calcMax)
+        // Find the lowest value in the list.
+        for(int i = 1; i < dataList.length; i++)
         {
-            // Find the highest value in the list.
-            for(int i = 1; i < dataList.length; i++)
+            element = dataList[i];
+            if(result > element) 
             {
-                element = dataList[i];
-                if(result < element) 
-                {
-                    // If the next element is higher than the maximum so far, 
-                    // update the maximum.
-                    result = element;
-                }
+                // If the next element is lower than the minimum so far, 
+                // update the minimum.
+                result = element;
             }
         }
-        else
-        {
-            // Find the lowest value in the list.
-            for(int i = 1; i < dataList.length; i++)
-            {
-                element = dataList[i];
-                if(result > element) 
-                {
-                    // If the next element is lower than the minimum so far, 
-                    // update the minimum.
-                    result = element;
-                }
-            }
-        }
+        return result;
+    }
+
+    public static double max(double[] dataList) {
+
+        double element;
+        double result = dataList[0];
         
+        // Find the highest value in the list.
+        for(int i = 1; i < dataList.length; i++)
+        {
+            element = dataList[i];
+            if(result < element) 
+            {
+                // If the next element is higher than the maximum so far, 
+                // update the maximum.
+                result = element;
+            }
+        }
         return result;
     }
     
