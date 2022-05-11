@@ -1,24 +1,26 @@
+import org.junit.*;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+import static org.junit.Assert.*;
+@RunWith(JUnit4.class)
 public class CharacterUtilsTest {
-    public static void main(String args[]) {
-        testCharCase();
-        testSubstr();
-    }
-
+    @Test
     public static void testCharCase() {
-        assert true == CharacterUtils.charCase(true, 'A');
-        assert false == CharacterUtils.charCase(true, 'a');
+        assertTrue("true, A", CharacterUtils.charCase(true, 'A'));
+        assertFalse("true, a", CharacterUtils.charCase(true, 'a'));
 
-        assert false == CharacterUtils.charCase(false, 'B');
-        assert true == CharacterUtils.charCase(false, 'b');
+        assertTrue("false, b", CharacterUtils.charCase(false, 'b'));
+        assertFalse("false, B", CharacterUtils.charCase(false, 'B'));
 
-        assert false == CharacterUtils.charCase(true, '-');
-        assert false == CharacterUtils.charCase(false, '/');
+        assertFalse("true, -", CharacterUtils.charCase(true, '-'));
+        assertFalse("false, /", CharacterUtils.charCase(false, '/'));
     }
 
+    @Test
     public static void testSubstr() {
-        assert "abc".equals(CharacterUtils.substr("abc", "abc")) : "abc + abc";
-        assert "ab".equals(CharacterUtils.substr("abc", "ab")) : "abc + ab";
-        assert "abc".equals(CharacterUtils.substr("abc", "abcd")) : "abc + abcd";
-        assert "".equals(CharacterUtils.substr("hello", "goodbye")) : "hello + goodbye";
+        assertTrue("abc + abc", "abc".equals(CharacterUtils.substr("abc", "abc")));
+        assertTrue("abc + ab", "ab".equals(CharacterUtils.substr("abc", "ab")));
+        assertTrue("abc + abcd", "abc".equals(CharacterUtils.substr("abc", "abcd")));
+        assertTrue("hello + goodbye", "hello".equals(CharacterUtils.substr("hello", "goodbye")));
     }
 }
