@@ -4,13 +4,6 @@ public class TestUtils {
         testPrintCoordinates();
     }
 
-    public static void setUp() {
-        ByteArrayOutputStream capOut = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(capOut));
-    }
-
-    //public static void tearDown() {}
-
     public static void testPrintCoordinates() {
         ByteArrayOutputStream capOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(capOut));
